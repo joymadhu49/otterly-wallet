@@ -35,10 +35,36 @@ export function explorerAddr(addr: string): string {
   return `${ARC_TESTNET.explorer}/address/${addr}`;
 }
 
-export function copy(text: string): void {
-  navigator.clipboard.writeText(text).catch(() => {
-    /* swallow */
-  });
+export function copy(text: string): boolean {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      return true;
+    }
+  } catch {
+    /* fall through */
+  }
+  return fallbackCopy(text);
+}
+
+function fallbackCopy(text: string): boolean {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
 }
 
 // Render a deterministic gradient avatar from address
