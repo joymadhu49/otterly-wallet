@@ -55,9 +55,8 @@ export const ConnectApproval: React.FC<{ req: any; state: any; onDone: () => voi
             background: '#11131A',
             border: '1px solid #1B1E27',
             borderRadius: 12,
-            overflow: 'hidden',
-            flex: 1,
-            overflowY: 'auto',
+            overflow: 'hidden auto',
+            maxHeight: '100%',
           }}
         >
           {accounts.map((a, i) => (

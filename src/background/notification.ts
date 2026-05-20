@@ -78,7 +78,9 @@ export async function openNotificationWindow(approvalId: string): Promise<number
   // shrinking the content area. Bump height so 100vh content (Sign/Reject
   // footer) stays fully visible.
   const width = 360;
-  const height = isLinux ? 700 : 640;
+  // Linux native title bar (~37px on GNOME/KDE) is drawn INSIDE the bounds passed
+  // to windows.create — bump just enough so 100vh content (footer) stays visible.
+  const height = isLinux ? 678 : 640;
   let left: number | undefined;
   let top: number | undefined;
   let clampBounds: { left: number; top: number; width: number; height: number } | undefined;
