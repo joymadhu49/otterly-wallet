@@ -182,6 +182,11 @@ export async function openNotificationWindow(approvalId: string): Promise<number
     setTimeout(apply, 120);
   }
 
+  // Lock the popup to its target size so user resize attempts snap back.
+  if (winId !== undefined) {
+    trackPopupSize(winId, width, height);
+  }
+
   return winId;
 }
 
@@ -255,4 +260,44 @@ browser.windows.onRemoved.addListener((winId) => {
       queue.delete(id);
     }
   });
+  trackedSizes.delete(winId);
 });
+
+// Track the locked size for each approval popup so we can snap it back if the
+// user tries to resize. Approval popups must stay at a fixed size — resizing
+// creates dead space around our 360-wide content and looks broken.
+const trackedSizes: Map<number, { width: number; height: number }> = new Map();
+
+function trackPopupSize(winId: number, width: number, height: number) {
+  trackedSizes.set(winId, { width, height });
+}
+
+const SNAP_DEBOUNCE_MS = 60;
+const snapTimers: Map<number, ReturnType<typeof setTimeout>> = new Map();
+
+// chrome.windows.onBoundsChanged is supported on MV3 (Chrome 86+). Use it via
+// the raw chrome global because webextension-polyfill may not type it.
+try {
+  const ch: any = (globalThis as any).chrome;
+  if (ch?.windows?.onBoundsChanged?.addListener) {
+    ch.windows.onBoundsChanged.addListener((win: any) => {
+      const target = trackedSizes.get(win.id);
+      if (!target) return;
+      // Only snap when the size actually drifted from our lock — let position
+      // changes (drag/move) pass through.
+      if (win.width === target.width && win.height === target.height) return;
+      // Debounce to avoid a feedback loop with the WM's own resize animation.
+      const prev = snapTimers.get(win.id);
+      if (prev) clearTimeout(prev);
+      snapTimers.set(
+        win.id,
+        setTimeout(() => {
+          ch.windows.update(win.id, { width: target.width, height: target.height }, () => void ch.runtime.lastError);
+          snapTimers.delete(win.id);
+        }, SNAP_DEBOUNCE_MS),
+      );
+    });
+  }
+} catch {
+  // onBoundsChanged unavailable — fall through, popup will just be resizable.
+}
