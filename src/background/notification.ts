@@ -26,60 +26,119 @@ function uid() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
-export async function openNotificationWindow(approvalId: string): Promise<number | undefined> {
-  try {
-    const width = 360;
-    const height = 640;
-    let left: number | undefined;
-    let top: number | undefined;
-
-    // Prefer placing at the right edge of the display containing the focused browser window.
+async function getDisplays(): Promise<any[]> {
+  const c: any = (globalThis as any).chrome;
+  const sys = c?.system?.display;
+  if (!sys?.getInfo) return [];
+  // chrome.system.display.getInfo uses callback in older Chromium / Linux builds;
+  // promisify so the same code path works everywhere.
+  return new Promise<any[]>((resolve) => {
     try {
-      const focused = await browser.windows.getLastFocused();
-      const sys: any = (browser as any).system?.display;
-      if (sys?.getInfo) {
-        const displays: any[] = await sys.getInfo();
-        const fx = (focused?.left ?? 0) + Math.round((focused?.width ?? 0) / 2);
-        const fy = (focused?.top ?? 0) + Math.round((focused?.height ?? 0) / 2);
-        const target =
-          displays.find((d: any) => {
-            const wa = d.workArea || d.bounds || {};
-            return (
-              fx >= wa.left && fx <= wa.left + wa.width &&
-              fy >= wa.top && fy <= wa.top + wa.height
-            );
-          }) ||
-          displays.find((d: any) => d.isPrimary) ||
-          displays[0];
-        if (target) {
-          const wa = target.workArea || target.bounds;
-          left = Math.max(0, Math.round(wa.left + wa.width - width - 16));
-          top = Math.max(0, Math.round(wa.top + 16));
-        }
-      }
-      if (left === undefined && focused) {
-        const fw = focused.width ?? 1280;
-        const fl = focused.left ?? 0;
-        const ft = focused.top ?? 0;
-        left = Math.max(0, Math.round(fl + fw - width - 24));
-        top = Math.max(0, Math.round(ft + 88));
+      const maybePromise = sys.getInfo((info: any[]) => resolve(info || []));
+      if (maybePromise && typeof maybePromise.then === 'function') {
+        maybePromise.then((info: any[]) => resolve(info || [])).catch(() => resolve([]));
       }
     } catch {
-      // ignore positioning failure
+      resolve([]);
+    }
+  });
+}
+
+function clampPosition(
+  left: number,
+  top: number,
+  width: number,
+  height: number,
+  bounds: { left: number; top: number; width: number; height: number },
+): { left: number; top: number } {
+  const maxLeft = bounds.left + bounds.width - width;
+  const maxTop = bounds.top + bounds.height - height;
+  return {
+    left: Math.max(bounds.left, Math.min(Math.round(left), Math.round(maxLeft))),
+    top: Math.max(bounds.top, Math.min(Math.round(top), Math.round(maxTop))),
+  };
+}
+
+export async function openNotificationWindow(approvalId: string): Promise<number | undefined> {
+  const width = 360;
+  const height = 640;
+  let left: number | undefined;
+  let top: number | undefined;
+  let clampBounds: { left: number; top: number; width: number; height: number } | undefined;
+
+  try {
+    const focused = await browser.windows.getLastFocused().catch(() => undefined);
+    const displays = await getDisplays();
+
+    if (displays.length > 0) {
+      const fx = (focused?.left ?? 0) + Math.round((focused?.width ?? 0) / 2);
+      const fy = (focused?.top ?? 0) + Math.round((focused?.height ?? 0) / 2);
+      const target =
+        displays.find((d: any) => {
+          const wa = d.workArea || d.bounds;
+          if (!wa) return false;
+          return (
+            fx >= wa.left && fx <= wa.left + wa.width &&
+            fy >= wa.top && fy <= wa.top + wa.height
+          );
+        }) ||
+        displays.find((d: any) => d.isPrimary) ||
+        displays[0];
+
+      const wa = target?.workArea || target?.bounds;
+      if (wa && Number.isFinite(wa.left) && Number.isFinite(wa.top)) {
+        clampBounds = { left: wa.left, top: wa.top, width: wa.width, height: wa.height };
+        const desiredLeft = wa.left + wa.width - width - 16;
+        const desiredTop = wa.top + 16;
+        const clamped = clampPosition(desiredLeft, desiredTop, width, height, clampBounds);
+        left = clamped.left;
+        top = clamped.top;
+      }
     }
 
-    const win = await browser.windows.create({
-      url: browser.runtime.getURL(`notification.html#/?id=${approvalId}`),
-      type: 'popup',
-      width,
-      height,
-      focused: true,
-      left,
-      top,
-    });
-    return win.id;
+    // Fall back to placement relative to focused browser window when display info unavailable.
+    if (left === undefined && focused && Number.isFinite(focused.left) && Number.isFinite(focused.top)) {
+      const fw = focused.width ?? 1280;
+      const fh = focused.height ?? 800;
+      const fl = focused.left ?? 0;
+      const ft = focused.top ?? 0;
+      const desiredLeft = fl + fw - width - 24;
+      const desiredTop = ft + 88;
+      const fallbackBounds = { left: fl, top: ft, width: fw, height: fh };
+      const clamped = clampPosition(desiredLeft, desiredTop, width, height, fallbackBounds);
+      left = clamped.left;
+      top = clamped.top;
+    }
   } catch {
-    return undefined;
+    // positioning best-effort
+  }
+
+  const baseOpts: any = {
+    url: browser.runtime.getURL(`notification.html#/?id=${approvalId}`),
+    type: 'popup',
+    width,
+    height,
+    focused: true,
+  };
+
+  // First try with computed position. Linux WMs sometimes reject out-of-range
+  // coordinates with "Invalid value for bounds"; retry without coords if so.
+  try {
+    if (left !== undefined && top !== undefined) {
+      const win = await browser.windows.create({ ...baseOpts, left, top });
+      return win.id;
+    }
+    const win = await browser.windows.create(baseOpts);
+    return win.id;
+  } catch (err) {
+    console.warn('[otterly] popup positioned create failed, retrying without bounds:', err);
+    try {
+      const win = await browser.windows.create(baseOpts);
+      return win.id;
+    } catch (err2) {
+      console.error('[otterly] popup create failed:', err2);
+      return undefined;
+    }
   }
 }
 
@@ -100,6 +159,10 @@ export async function requestApproval<T = any>(
   };
   const promise = new Promise<T>(async (resolve, reject) => {
     const windowId = await openNotificationWindow(id);
+    if (windowId === undefined) {
+      reject({ code: -32603, message: 'Otterly could not open the approval window' });
+      return;
+    }
     queue.set(id, { req, resolve, reject, windowId });
   });
   return promise;
