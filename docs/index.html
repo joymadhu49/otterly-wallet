@@ -188,6 +188,11 @@
     background: var(--bg-0); border-radius: 24px; overflow: hidden;
     position: relative; font-size: 13px;
   }
+  .frame .screen img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+  }
   .frame-label {
     position: absolute; top: -28px; left: 0; right: 0;
     text-align: center; font-size: 11px; color: var(--t3);
@@ -380,316 +385,43 @@
 <section class="gallery" id="screens">
   <div class="section-eyebrow">Every screen</div>
   <div class="section-title">
-    <h2>Premium minimalism, end to end.</h2>
-    <p>From onboarding to approvals, every surface is purposeful, calm, and consistent.</p>
+    <h2>Premium minimalism, end&nbsp;to&nbsp;end.</h2>
+    <p>Real screenshots from the live build — every surface designed to feel calm, fast, and trustworthy.</p>
   </div>
 
   <div class="grid">
-
-    <!-- 1. WELCOME -->
     <div class="frame-wrap">
       <div class="frame-label">Welcome</div>
-      <div class="frame"><div class="screen">
-        <div style="height:100%; display:flex; flex-direction:column; padding:24px; align-items:center; justify-content:center; text-align:center;">
-          <img src="icon.png" style="width:80px;height:80px;border-radius:20px;box-shadow:0 16px 48px rgba(77,142,233,0.4);margin-bottom:22px" />
-          <div style="font-size:26px;font-weight:800;letter-spacing:-0.025em">Otterly</div>
-          <div style="color:var(--t2);margin-top:8px;font-size:13px;line-height:1.5;max-width:240px">Friendly self-custodial wallet for the Arc Network. USDC-native gas. Instant finality.</div>
-          <div style="margin-top:auto;width:100%;display:flex;flex-direction:column;gap:10px">
-            <div style="background:var(--acc);color:#fff;padding:13px;border-radius:12px;font-weight:700;text-align:center;font-size:14px;box-shadow:0 8px 24px rgba(77,142,233,0.4)">Create new wallet</div>
-            <div style="background:var(--bg-2);border:1px solid var(--border);color:#fff;padding:13px;border-radius:12px;font-weight:700;text-align:center;font-size:14px">Import existing</div>
-          </div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/01-welcome.jpg" alt="Welcome screen" loading="lazy" /></div></div>
     </div>
-
-    <!-- 2. UNLOCK -->
     <div class="frame-wrap">
       <div class="frame-label">Unlock</div>
-      <div class="frame"><div class="screen">
-        <div style="height:100%;display:flex;flex-direction:column;padding:24px;justify-content:center">
-          <div style="text-align:center;margin-bottom:32px">
-            <img src="icon.png" style="width:72px;height:72px;border-radius:18px;box-shadow:0 16px 48px rgba(77,142,233,0.35);margin-bottom:16px"/>
-            <div style="font-size:22px;font-weight:700;letter-spacing:-0.02em">Welcome back</div>
-            <div style="color:var(--t2);margin-top:6px;font-size:13px">Unlock Otterly</div>
-          </div>
-          <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px">
-            <span class="squircle" style="border-radius:10px;color:var(--acc-2)">🔒</span>
-            <span class="mono" style="flex:1;letter-spacing:0.18em;color:#fff">••••••••</span>
-            <span style="color:var(--t3)">👁</span>
-          </div>
-          <div style="margin-top:16px;background:var(--acc);padding:14px;border-radius:12px;font-weight:700;text-align:center;color:#fff;box-shadow:0 8px 24px rgba(77,142,233,0.4)">Unlock</div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/02-unlock.jpg" alt="Unlock screen" loading="lazy" /></div></div>
     </div>
-
-    <!-- 3. DASHBOARD - CRYPTO -->
     <div class="frame-wrap">
       <div class="frame-label">Dashboard · Crypto</div>
-      <div class="frame"><div class="screen">
-        <div style="padding:14px 14px 6px;display:flex;align-items:center;justify-content:space-between">
-          <div class="row" style="gap:10px">
-            <div class="avatar">
-              <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-              <span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span>
-              <span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span>
-              <span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span>
-              <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-            </div>
-            <div>
-              <div style="font-weight:700;font-size:13px">Arc Vault 1 <span style="color:var(--t3);font-size:9px">▾</span></div>
-              <div style="color:var(--t2);font-size:11px">Otterly Wallet</div>
-            </div>
-          </div>
-          <div class="row" style="gap:6px">
-            <span class="squircle" style="width:30px;height:30px;border-radius:50%">⧉</span>
-            <span class="squircle" style="width:30px;height:30px;border-radius:50%">⛓</span>
-            <span class="squircle" style="width:30px;height:30px;border-radius:50%">⌐</span>
-          </div>
-        </div>
-        <div style="padding:8px 14px 6px">
-          <div style="font-size:38px;font-weight:800;letter-spacing:-0.035em;line-height:1.05">$81<span style="color:var(--t3);font-size:28px">.40</span></div>
-        </div>
-        <div style="padding:6px 14px 12px;display:flex;gap:8px;justify-content:space-between">
-          <div style="text-align:center"><div class="icon-tile" style="border-radius:50%;width:46px;height:46px">↑</div><div style="font-size:11px;margin-top:5px">Send</div></div>
-          <div style="text-align:center"><div class="icon-tile" style="border-radius:50%;width:46px;height:46px">↓</div><div style="font-size:11px;margin-top:5px">Receive</div></div>
-          <div style="text-align:center"><div class="icon-tile" style="border-radius:50%;width:46px;height:46px">⇄</div><div style="font-size:11px;margin-top:5px">Swap</div></div>
-          <div style="text-align:center"><div class="icon-tile" style="border-radius:50%;width:46px;height:46px">⟲</div><div style="font-size:11px;margin-top:5px">History</div></div>
-          <div style="text-align:center"><div class="icon-tile" style="border-radius:50%;width:46px;height:46px">▦</div><div style="font-size:11px;margin-top:5px">More</div></div>
-        </div>
-        <div class="underline-tabs">
-          <div class="tab active">Crypto</div><div class="tab">DeFi</div><div class="tab">NFT</div><div class="tab">Approvals</div>
-        </div>
-        <div style="padding:8px 14px">
-          <div class="between" style="padding:10px 0">
-            <div class="row" style="gap:10px"><span class="tk tk-usdc">$</span><div><div style="font-weight:700;font-size:13px">USDC</div><div style="color:var(--t2);font-size:11px">45.4658</div></div></div>
-            <div style="text-align:right"><div style="font-weight:700;font-size:13px">$45.47</div><div style="color:var(--t2);font-size:11px">$1.00</div></div>
-          </div>
-          <div class="between" style="padding:10px 0">
-            <div class="row" style="gap:10px"><span class="tk tk-eurc">€</span><div><div style="font-weight:700;font-size:13px">EURC</div><div style="color:var(--t2);font-size:11px">33.1114</div></div></div>
-            <div style="text-align:right"><div style="font-weight:700;font-size:13px">$35.93</div><div style="color:var(--t2);font-size:11px">$1.08</div></div>
-          </div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/03-dashboard.jpg" alt="Dashboard with USDC + EURC balances" loading="lazy" /></div></div>
     </div>
-
-    <!-- 4. SEND -->
     <div class="frame-wrap">
       <div class="frame-label">Send</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar">
-          <div class="back">←</div>
-          <div>
-            <div>Send</div>
-            <div class="row" style="justify-content:center;gap:6px;font-size:11px;color:var(--t2);margin-top:3px">
-              <span class="squircle" style="width:16px;height:16px;border-radius:5px;font-size:9px;color:var(--acc-2)">A</span> Arc Vault 1
-            </div>
-          </div>
-        </div>
-        <div class="pad">
-          <div style="font-weight:700;font-size:14px;margin-bottom:8px">To <span style="float:right;color:var(--good);font-size:11px;font-weight:600">✓ Your own address</span></div>
-          <div class="card" style="border-radius:14px;display:flex;gap:12px;align-items:center">
-            <div class="avatar">
-              <span style="background:#5FBFFF"></span><span style="background:#F4C430"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#5FBFFF"></span>
-              <span style="background:#F4C430"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#5FBFFF"></span><span style="background:#F4C430"></span>
-              <span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#5FBFFF"></span><span style="background:#F4C430"></span><span style="background:#3CB371"></span>
-              <span style="background:#FF6B9D"></span><span style="background:#5FBFFF"></span><span style="background:#F4C430"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span>
-              <span style="background:#5FBFFF"></span><span style="background:#F4C430"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#5FBFFF"></span>
-            </div>
-            <div style="flex:1"><div style="font-weight:700;font-size:14px">Arc Vault 2</div><div class="mono" style="font-size:11px;color:var(--t2)">0xab7e37…128fad</div></div>
-            <span class="arrow">›</span>
-          </div>
-          <div style="font-weight:700;font-size:14px;margin:18px 0 8px">Amount</div>
-          <div class="card">
-            <div class="row" style="justify-content:space-between">
-              <div style="font-size:28px;font-weight:800;letter-spacing:-0.025em">0.5</div>
-              <div class="row" style="gap:6px;background:var(--bg-4);padding:4px 10px 4px 4px;border-radius:999px">
-                <span class="tk tk-usdc" style="width:22px;height:22px;font-size:11px">$</span>
-                <span style="font-weight:700;font-size:13px">USDC</span>
-                <span class="arrow">▾</span>
-              </div>
-            </div>
-            <div class="between" style="margin-top:10px;font-size:12px">
-              <span style="color:var(--t3)">$0.50</span>
-              <div class="row" style="gap:8px"><span style="color:var(--t2)">45.4658</span><span style="background:rgba(77,142,233,0.14);color:var(--acc-2);padding:3px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.04em">MAX</span></div>
-            </div>
-          </div>
-          <div class="between" style="padding:14px 4px 0;font-size:12px">
-            <span style="color:var(--t2)">Network fee</span>
-            <span style="color:var(--acc-2);font-weight:600">Instant · 0.000420 USDC</span>
-          </div>
-        </div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px 14px;border-top:1px solid var(--border);background:rgba(10,11,15,0.92);display:flex;gap:10px">
-          <div style="flex:1;background:var(--acc);color:#fff;font-weight:700;padding:13px;border-radius:12px;text-align:center;box-shadow:0 8px 24px rgba(77,142,233,0.4)">Confirm</div>
-          <div style="width:44px;height:44px;border-radius:12px;background:var(--bg-3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--t2)">✕</div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/04-send.jpg" alt="Send screen with USDC-native gas fee" loading="lazy" /></div></div>
     </div>
-
-    <!-- 5. RECEIVE -->
     <div class="frame-wrap">
       <div class="frame-label">Receive</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar"><div class="back">←</div>Receive</div>
-        <div class="pad" style="text-align:center">
-          <div style="background:#fff;border-radius:18px;padding:18px;margin:8px auto 0;width:fit-content;box-shadow:0 18px 40px rgba(0,0,0,0.4)">
-            <div style="width:200px;height:200px;background-image:
-                  linear-gradient(45deg,#000 25%,transparent 25%,transparent 75%,#000 75%),
-                  linear-gradient(45deg,#000 25%,transparent 25%,transparent 75%,#000 75%);
-                  background-size:14px 14px; background-position:0 0,7px 7px;
-                  border-radius:4px;position:relative">
-              <div style="position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:46px;height:46px;background:#fff;display:flex;align-items:center;justify-content:center;border-radius:10px">
-                <img src="icon.png" style="width:38px;height:38px;border-radius:8px"/>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:18px;color:var(--t2);font-size:12px">Your Arc Testnet address</div>
-          <div class="mono" style="margin-top:6px;background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;font-size:12px;word-break:break-all;text-align:center">
-            0xab7e37c4a98f1b3c2d4e5f6789012345128fad
-          </div>
-          <div style="margin-top:14px;background:var(--acc);color:#fff;font-weight:700;padding:12px;border-radius:12px;font-size:13px">Copy address</div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/05-receive.jpg" alt="Receive screen with QR code" loading="lazy" /></div></div>
     </div>
-
-    <!-- 6. HISTORY -->
     <div class="frame-wrap">
       <div class="frame-label">History</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar"><div class="back">←</div>History</div>
-        <div style="display:flex;gap:8px;padding:0 14px 12px">
-          <span class="pill" style="background:var(--bg-2);border:1px solid var(--border);padding:6px 10px;font-size:11px">🌐 All networks ▾</span>
-          <span class="pill" style="background:var(--bg-2);border:1px solid var(--border);padding:6px 10px;font-size:11px">All types ▾</span>
-        </div>
-        <div class="pad">
-          <div class="label-cap" style="padding:6px 2px">05/20/2026</div>
-          <div class="row" style="padding:10px 0;gap:12px">
-            <div style="width:34px;height:34px;border-radius:17px;background:rgba(77,142,233,0.12);color:var(--acc-2);display:flex;align-items:center;justify-content:center;font-size:14px">↑</div>
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">Send</div><div class="mono" style="font-size:11px;color:var(--t3);margin-top:2px">To 0xab7e…fad</div></div>
-            <div style="text-align:right;font-weight:700;font-size:13px">-1 USDC</div>
-          </div>
-          <div class="row" style="padding:10px 0;gap:12px">
-            <div style="width:34px;height:34px;border-radius:17px;background:rgba(34,197,94,0.12);color:var(--good);display:flex;align-items:center;justify-content:center;font-size:14px">↓</div>
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">Receive</div><div class="mono" style="font-size:11px;color:var(--t3);margin-top:2px">From 0x3a1b…29c8</div></div>
-            <div style="text-align:right;font-weight:700;font-size:13px;color:var(--good)">+10 USDC</div>
-          </div>
-          <div class="row" style="padding:10px 0;gap:12px">
-            <div style="width:34px;height:34px;border-radius:17px;background:rgba(95,191,255,0.12);color:var(--acc-2);display:flex;align-items:center;justify-content:center;font-size:14px">⇄</div>
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">Swap</div><div class="mono" style="font-size:11px;color:var(--t3);margin-top:2px">0xc4f1…8de2</div></div>
-            <div style="text-align:right">
-              <div style="font-weight:700;font-size:13px;color:var(--good)">+1.006 EURC</div>
-              <div style="font-weight:600;font-size:11px;color:var(--t2)">-1 USDC</div>
-            </div>
-          </div>
-          <div class="label-cap" style="padding:14px 2px 0">05/19/2026</div>
-          <div class="row" style="padding:10px 0;gap:12px">
-            <div style="width:34px;height:34px;border-radius:17px;background:rgba(255,180,77,0.12);color:var(--warn);display:flex;align-items:center;justify-content:center;font-size:14px">🛡</div>
-            <div style="flex:1"><div style="font-weight:600;font-size:13px">Approve USDC</div><div class="mono" style="font-size:11px;color:var(--t3);margin-top:2px">0x6dC…f3a</div></div>
-            <div style="color:var(--t3);font-size:13px">—</div>
-          </div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/06-history.jpg" alt="History grouped by date" loading="lazy" /></div></div>
     </div>
-
-    <!-- 7. NFT -->
     <div class="frame-wrap">
       <div class="frame-label">NFT</div>
-      <div class="frame"><div class="screen">
-        <div style="padding:14px 14px 6px">
-          <div style="font-size:38px;font-weight:800;letter-spacing:-0.035em">$81<span style="color:var(--t3);font-size:28px">.40</span></div>
-        </div>
-        <div class="underline-tabs">
-          <div class="tab">Crypto</div><div class="tab">DeFi</div><div class="tab active">NFT</div><div class="tab">Approvals</div>
-        </div>
-        <div style="padding:10px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div style="background:#0F1117;border-radius:14px;overflow:hidden">
-            <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#4D8EE9,#1C4EC4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px;letter-spacing:0.06em">ARC</div>
-            <div style="padding:8px 10px 10px"><div style="color:var(--t2);font-size:10px">Arc Genesis</div><div style="font-weight:700;font-size:12px">#42</div></div>
-          </div>
-          <div style="background:#0F1117;border-radius:14px;overflow:hidden">
-            <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#FF6B9D,#7B2CBF);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px">OTR</div>
-            <div style="padding:8px 10px 10px"><div style="color:var(--t2);font-size:10px">Otterlings</div><div style="font-weight:700;font-size:12px">#108</div></div>
-          </div>
-          <div style="background:#0F1117;border-radius:14px;overflow:hidden">
-            <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#22C55E,#0E7C3A);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px">USD</div>
-            <div style="padding:8px 10px 10px"><div style="color:var(--t2);font-size:10px">Circle Drop</div><div style="font-weight:700;font-size:12px">#3</div></div>
-          </div>
-          <div style="background:#0F1117;border-radius:14px;overflow:hidden">
-            <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#FFB44D,#E2725B);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:22px">EVM</div>
-            <div style="padding:8px 10px 10px"><div style="color:var(--t2);font-size:10px">EVMHub</div><div style="font-weight:700;font-size:12px">#31</div></div>
-          </div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/07-nft.jpg" alt="NFT grid" loading="lazy" /></div></div>
     </div>
-
-    <!-- 8. SETTINGS -->
     <div class="frame-wrap">
       <div class="frame-label">Settings</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar"><div class="back">←</div>Settings</div>
-        <div class="pad">
-          <div style="background:#0F1117;border-radius:14px;padding:12px;display:flex;align-items:center;gap:12px">
-            <div class="avatar" style="width:36px;height:36px;border-radius:12px">
-              <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-              <span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span>
-              <span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span>
-              <span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span>
-              <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-            </div>
-            <div style="flex:1"><div style="font-weight:700;font-size:14px">Arc Vault 1</div><div class="mono" style="font-size:11px;color:var(--t2)">0xab7e37…128fad</div></div>
-            <span class="pill"><span class="dot"></span>Arc Testnet</span>
-          </div>
-          <div class="group" style="margin-top:14px">
-            <div class="row" style="padding:12px 14px;gap:12px"><div class="icon-tile">👤</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Accounts</div><div style="color:var(--t2);font-size:11px">1 account</div></div><span class="arrow">›</span></div>
-            <div class="row" style="padding:12px 14px;gap:12px"><div class="icon-tile">▦</div><div style="flex:1;font-weight:600;font-size:13px">Connected sites</div><span class="arrow">›</span></div>
-            <div class="row" style="padding:12px 14px;gap:12px"><div class="icon-tile">🛡</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Security &amp; backup</div><div style="color:var(--t2);font-size:11px">Reveal seed, export key</div></div><span class="arrow">›</span></div>
-            <div class="row" style="padding:12px 14px;gap:12px"><div class="icon-tile">⏻</div><div style="flex:1;font-weight:600;font-size:13px;color:var(--bad)">Lock wallet</div><span class="arrow">›</span></div>
-          </div>
-          <div style="text-align:center;padding:22px 0 6px;font-size:12px;color:var(--t2)">
-            <a>Docs</a> <span style="color:var(--border-soft);margin:0 8px">·</span> <a>Explorer</a>
-          </div>
-          <div style="text-align:center;font-size:10px;color:var(--t3);letter-spacing:0.04em">Otterly · v0.1.0</div>
-        </div>
-      </div></div>
+      <div class="frame"><div class="screen"><img src="shots/08-settings.jpg" alt="Settings grouped card" loading="lazy" /></div></div>
     </div>
-
-    <!-- 9. APPROVAL CONNECT -->
-    <div class="frame-wrap">
-      <div class="frame-label">Approval · Connect</div>
-      <div class="frame"><div class="screen">
-        <div style="padding:14px 14px 4px;display:flex;align-items:center;justify-content:space-between">
-          <div class="row" style="gap:8px">
-            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5FBFFF,#4D8EE9);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px">N</div>
-            <div class="mono" style="font-size:11px;color:var(--t2)">www.example-dapp.xyz</div>
-          </div>
-          <span class="pill" style="background:rgba(77,142,233,0.08);color:var(--acc-2);border:1px solid rgba(77,142,233,0.25)"><span class="dot" style="background:var(--acc-2)"></span>Arc Testnet</span>
-        </div>
-        <div style="padding:6px 14px 0">
-          <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em">Connect wallet</div>
-          <div style="color:var(--t2);font-size:13px;margin-top:6px">This site is requesting access to your accounts.</div>
-        </div>
-        <div style="padding:14px 14px 0">
-          <div class="label-cap">Permissions</div>
-          <div class="card" style="margin-top:6px;font-size:12px;color:var(--t2);line-height:1.6">
-            <div>• View addresses and account balance</div>
-            <div>• Request transaction &amp; signature approvals</div>
-          </div>
-        </div>
-        <div style="padding:14px 14px 0">
-          <div class="label-cap">Select accounts</div>
-          <div class="card" style="margin-top:6px">
-            <div class="row" style="gap:10px">
-              <div style="width:18px;height:18px;border-radius:5px;background:var(--acc);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px">✓</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:13px">Arc Vault 1</div><div class="mono" style="font-size:11px;color:var(--t2)">0xAB7E37…128fad</div></div>
-            </div>
-          </div>
-        </div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px 14px;border-top:1px solid var(--border);background:rgba(10,11,15,0.94);display:flex;gap:10px">
-          <div style="flex:1;background:var(--bg-3);border:1px solid var(--border);color:#fff;font-weight:700;padding:12px;border-radius:12px;text-align:center;font-size:13px">Reject</div>
-          <div style="flex:1;background:var(--acc);color:#fff;font-weight:700;padding:12px;border-radius:12px;text-align:center;font-size:13px;box-shadow:0 8px 24px rgba(77,142,233,0.42)">Connect</div>
-        </div>
-      </div></div>
-    </div>
-
   </div>
 </section>
 
