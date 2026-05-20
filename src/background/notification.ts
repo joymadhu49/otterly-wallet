@@ -59,16 +59,37 @@ function clampPosition(
   };
 }
 
+function detectPlatform(): { isLinux: boolean; isWayland: boolean } {
+  const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+  const isLinux = /Linux/i.test(ua) && !/Android/i.test(ua);
+  // Wayland is not reported in UA. We treat all Linux as potentially Wayland
+  // (Fedora, recent Ubuntu, openSUSE all default to Wayland) and skip the
+  // positioning effort on Linux entirely — it's a no-op on Wayland and on X11
+  // most WMs ignore it anyway.
+  const isWayland = isLinux;
+  return { isLinux, isWayland };
+}
+
 export async function openNotificationWindow(approvalId: string): Promise<number | undefined> {
+  const { isLinux, isWayland } = detectPlatform();
+
+  // Chrome's windows.create `height` is the OUTER bound. On Linux, the WM
+  // (GNOME/Mutter, KDE/KWin) draws a ~37px native title bar inside that bound,
+  // shrinking the content area. Bump height so 100vh content (Sign/Reject
+  // footer) stays fully visible.
   const width = 360;
-  const height = 640;
+  const height = isLinux ? 700 : 640;
   let left: number | undefined;
   let top: number | undefined;
   let clampBounds: { left: number; top: number; width: number; height: number } | undefined;
 
   try {
     const focused = await browser.windows.getLastFocused().catch(() => undefined);
-    const displays = await getDisplays();
+    // On Wayland (Fedora, modern Ubuntu, etc.), the compositor protocol forbids
+    // clients from positioning their own windows — `left`/`top` passed to
+    // windows.create / windows.update are silently ignored. Skip the work.
+    // Ref: https://crbug.com/1140949
+    const displays = isWayland ? [] : await getDisplays();
 
     if (displays.length > 0) {
       const fx = (focused?.left ?? 0) + Math.round((focused?.width ?? 0) / 2);
@@ -97,7 +118,7 @@ export async function openNotificationWindow(approvalId: string): Promise<number
     }
 
     // Fall back to placement relative to focused browser window when display info unavailable.
-    if (left === undefined && focused && Number.isFinite(focused.left) && Number.isFinite(focused.top)) {
+    if (left === undefined && !isWayland && focused && Number.isFinite(focused.left) && Number.isFinite(focused.top)) {
       const fw = focused.width ?? 1280;
       const fh = focused.height ?? 800;
       const fl = focused.left ?? 0;
