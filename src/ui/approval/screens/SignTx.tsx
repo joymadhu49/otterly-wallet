@@ -36,9 +36,10 @@ export const SignTxApproval: React.FC<{ req: any; state: any; onDone: () => void
   }
 
   return (
-    <div style={{ minHeight: '100vh', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <SiteHeader origin={req.origin} title={isCall ? 'Confirm contract call' : 'Confirm transaction'} />
 
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden' }}>
       <div style={{ padding: '14px 16px 4px' }}>
         <SignerCard address={tx.from} label="From" />
       </div>
@@ -150,7 +151,8 @@ export const SignTxApproval: React.FC<{ req: any; state: any; onDone: () => void
         </div>
       )}
 
-      <div style={{ flex: 1 }} />
+        <div style={{ height: 16 }} />
+      </div>
 
       <div
         style={{
@@ -161,6 +163,7 @@ export const SignTxApproval: React.FC<{ req: any; state: any; onDone: () => void
           WebkitBackdropFilter: 'blur(20px)',
           display: 'flex',
           gap: 10,
+          flexShrink: 0,
         }}
       >
         <Button size="large" block onClick={reject}>Reject</Button>

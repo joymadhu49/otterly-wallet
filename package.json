@@ -1,6 +1,6 @@
 {
   "name": "otterly-wallet",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Otterly Wallet — friendly self-custodial Chrome extension for the Arc Network. USDC-native gas, instant finality.",
   "license": "MIT",
   "private": true,

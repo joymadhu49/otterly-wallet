@@ -18,61 +18,59 @@ export const SignTypedDataApproval: React.FC<{ req: any; state: any; onDone: () 
   async function reject() { await api.rejectApproval(req.id); onDone(); window.close(); }
 
   return (
-    <div style={{ minHeight: '100vh', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <SiteHeader origin={req.origin} title="Sign typed data" subtitle="Off-chain message — no gas, no funds move." />
 
-      <div style={{ padding: '14px 16px 4px' }}>
-        <SignerCard address={address} />
-      </div>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', overflowX: 'hidden' }}>
+        <div style={{ padding: '14px 16px 4px' }}>
+          <SignerCard address={address} />
+        </div>
 
-      <div style={{ padding: '12px 16px 0' }}>
-        <div
-          style={{
-            background: 'linear-gradient(180deg, #11131A 0%, #0A0B0F 100%)',
-            border: '1px solid #1B1E27',
-            borderRadius: 14,
-            overflow: 'hidden',
-          }}
-        >
-          <div style={{ padding: '10px 14px', fontSize: 11, color: '#5A5F6E', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
-            Domain
+        <div style={{ padding: '12px 16px 0' }}>
+          <div
+            style={{
+              background: 'linear-gradient(180deg, #11131A 0%, #0A0B0F 100%)',
+              border: '1px solid #1B1E27',
+              borderRadius: 14,
+              overflow: 'hidden',
+            }}
+          >
+            <div style={{ padding: '10px 14px', fontSize: 11, color: '#5A5F6E', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700 }}>
+              Domain
+            </div>
+            <Row label="Primary type" value={payload?.primaryType || '—'} />
+            <Row label="Name" value={payload?.domain?.name || '—'} />
+            <Row label="Chain ID" value={payload?.domain?.chainId ?? '—'} mono />
+            <Row
+              label="Contract"
+              value={payload?.domain?.verifyingContract ? shortAddr(payload.domain.verifyingContract, 6) : '—'}
+              mono
+            />
           </div>
-          <Row label="Primary type" value={payload?.primaryType || '—'} />
-          <Row label="Name" value={payload?.domain?.name || '—'} />
-          <Row label="Chain ID" value={payload?.domain?.chainId ?? '—'} mono />
-          <Row
-            label="Contract"
-            value={payload?.domain?.verifyingContract ? shortAddr(payload.domain.verifyingContract, 6) : '—'}
-            mono
-          />
+        </div>
+
+        <div style={{ padding: '14px 16px 16px' }}>
+          <div style={{ fontSize: 11, color: '#5A5F6E', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6, paddingLeft: 2 }}>
+            Message
+          </div>
+          <div
+            className="arc-mono"
+            style={{
+              background: '#0A0B0F',
+              border: '1px solid #1B1E27',
+              borderRadius: 12,
+              padding: 12,
+              fontSize: 11,
+              lineHeight: 1.6,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
+              color: '#A1A8B5',
+            }}
+          >
+            {JSON.stringify(payload?.message, null, 2)}
+          </div>
         </div>
       </div>
-
-      <div style={{ padding: '14px 16px 6px' }}>
-        <div style={{ fontSize: 11, color: '#5A5F6E', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6, paddingLeft: 2 }}>
-          Message
-        </div>
-        <div
-          className="arc-mono"
-          style={{
-            background: '#0A0B0F',
-            border: '1px solid #1B1E27',
-            borderRadius: 12,
-            padding: 12,
-            fontSize: 11,
-            lineHeight: 1.6,
-            maxHeight: 200,
-            overflow: 'auto',
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-            color: '#A1A8B5',
-          }}
-        >
-          {JSON.stringify(payload?.message, null, 2)}
-        </div>
-      </div>
-
-      <div style={{ flex: 1 }} />
 
       <div
         style={{
@@ -83,6 +81,7 @@ export const SignTypedDataApproval: React.FC<{ req: any; state: any; onDone: () 
           WebkitBackdropFilter: 'blur(20px)',
           display: 'flex',
           gap: 10,
+          flexShrink: 0,
         }}
       >
         <Button size="large" block onClick={reject}>Reject</Button>
