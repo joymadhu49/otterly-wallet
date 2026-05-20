@@ -1,0 +1,231 @@
+@import './tokens.less';
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: @bg-0;
+  color: @text-1;
+  font-family: @font;
+  font-size: 14px;
+  line-height: 1.5;
+  width: 360px;
+  min-height: 600px;
+  overflow-x: hidden;
+  letter-spacing: -0.005em;
+  scrollbar-width: none;       // Firefox
+  -ms-overflow-style: none;    // legacy Edge / IE
+}
+
+body {
+  background:
+    @gradient-glow,
+    @bg-0;
+}
+
+body.notification-root,
+body.notification-root #root {
+  width: 360px;
+  min-height: 100vh;
+  height: 100vh;
+}
+body.notification-root #root {
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar { width: 0; height: 0; display: none; }
+*, *::-webkit-scrollbar { scrollbar-width: none; }
+
+a { color: @accent-2; text-decoration: none; }
+
+.arc-card {
+  background: @gradient-card;
+  border: 1px solid @border;
+  border-radius: @radius-lg;
+  padding: 16px;
+  box-shadow: @shadow-card;
+}
+
+.arc-elevated {
+  background: @bg-2;
+  border: 1px solid @border;
+  border-radius: @radius-md;
+}
+
+.arc-grad-text {
+  background: @gradient-1;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.arc-mono { font-family: @mono; letter-spacing: 0; }
+
+.arc-divider {
+  height: 1px;
+  background: @border;
+  margin: 12px 0;
+}
+
+.arc-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arc-tap {
+  transition: background @dur @ease, transform @dur @ease, opacity @dur @ease;
+  &:active { transform: scale(0.98); }
+  &:hover { background: rgba(255,255,255,0.025); }
+}
+
+.arc-chip {
+  background: rgba(77, 142, 233, 0.08);
+  border: 1px solid rgba(77, 142, 233, 0.22);
+  color: @accent-2;
+  padding: 4px 10px;
+  border-radius: @radius-pill;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+// Antd overrides
+.ant-btn {
+  transition: all @dur @ease !important;
+  letter-spacing: -0.005em !important;
+}
+.ant-btn-primary {
+  background: @accent !important;
+  border-color: @accent !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(77, 142, 233, 0.28) !important;
+  &:hover { background: @accent-press !important; border-color: @accent-press !important; box-shadow: 0 6px 24px rgba(77, 142, 233, 0.38) !important; }
+  &:disabled { background: @bg-3 !important; color: @text-3 !important; border-color: @border !important; box-shadow: none !important; }
+}
+
+.ant-input, .ant-input-affix-wrapper, .ant-input-password, textarea.ant-input {
+  background: @bg-2 !important;
+  border-color: @border !important;
+  color: @text-1 !important;
+  border-radius: @radius-md !important;
+  transition: border-color @dur @ease, box-shadow @dur @ease !important;
+  &:hover, &:focus, &-focused {
+    border-color: @accent !important;
+    box-shadow: 0 0 0 3px rgba(77, 142, 233, 0.16) !important;
+  }
+}
+
+// Borderless variant — strip all chrome so it lays flat inside custom cards
+.ant-input.ant-input-borderless,
+.ant-input-affix-wrapper.ant-input-borderless,
+.ant-input-outlined.ant-input-borderless,
+input.ant-input-borderless,
+.ant-input-borderless input.ant-input {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  &:hover, &:focus, &-focused {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.ant-modal-content, .ant-modal-header { background: @bg-1 !important; border-radius: @radius-lg !important; }
+.ant-modal-title { color: @text-1 !important; }
+
+.ant-tabs-tab .ant-tabs-tab-btn { color: @text-2 !important; font-weight: 500; }
+.ant-tabs-tab-active .ant-tabs-tab-btn { color: @text-1 !important; }
+.ant-tabs-ink-bar { background: @accent !important; }
+
+.ant-message-notice-content {
+  background: @bg-2 !important;
+  border: 1px solid @border-soft !important;
+  border-radius: @radius-md !important;
+  color: @text-1 !important;
+  box-shadow: @shadow-popover !important;
+}
+
+.ant-popover-inner {
+  background: @bg-1 !important;
+  border: 1px solid @border-soft !important;
+  border-radius: @radius-lg !important;
+  box-shadow: @shadow-popover !important;
+}
+
+// Brand loader — Otterly logo breathing + halo pulse
+@keyframes otterly-breathe {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 6px 18px rgba(77,142,233,0.30)); }
+  50%      { transform: scale(0.94); filter: drop-shadow(0 4px 12px rgba(77,142,233,0.18)); }
+}
+@keyframes otterly-halo {
+  0%   { opacity: 0.55; transform: scale(0.85); }
+  70%  { opacity: 0;    transform: scale(1.45); }
+  100% { opacity: 0;    transform: scale(1.45); }
+}
+@keyframes otterly-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+  40%           { opacity: 1;    transform: translateY(-3px); }
+}
+
+.otterly-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 48px 0;
+
+  &__badge {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__halo {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,142,233,0.55), rgba(77,142,233,0) 65%);
+    animation: otterly-halo 1.6s @ease infinite;
+  }
+  &__logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    animation: otterly-breathe 1.6s @ease infinite;
+    position: relative;
+  }
+  &__dots {
+    display: flex;
+    gap: 5px;
+  }
+  &__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: @accent;
+    animation: otterly-dot 1.2s @ease infinite;
+    &:nth-child(2) { animation-delay: 0.15s; }
+    &:nth-child(3) { animation-delay: 0.30s; }
+  }
+  &__label {
+    font-size: 12px;
+    color: @text-3;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}

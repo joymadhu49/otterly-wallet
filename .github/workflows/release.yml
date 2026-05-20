@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      - run: cd dist && zip -r ../otterly-wallet-${{ github.ref_name }}.zip . && cd ..
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: otterly-wallet-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          name: Otterly Wallet ${{ github.ref_name }}
+          body: |
+            ## Otterly Wallet ${{ github.ref_name }}
+
+            **Install:**
+            1. Download `otterly-wallet-${{ github.ref_name }}.zip` and unzip.
+            2. Open `chrome://extensions` → enable Developer mode → Load unpacked → pick the unzipped folder.
+
+            See the [README](https://github.com/${{ github.repository }}#install-the-zip-in-chrome) for full instructions.
