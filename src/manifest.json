@@ -3,7 +3,7 @@
   "name": "Otterly Wallet",
   "short_name": "Otterly",
   "description": "Premium wallet for Arc Network. USDC-native gas. Self-custodial, EIP-1193 compatible.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "action": {
     "default_title": "Otterly Wallet",
     "default_popup": "popup.html",

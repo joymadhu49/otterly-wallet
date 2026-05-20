@@ -123,23 +123,43 @@ export async function openNotificationWindow(approvalId: string): Promise<number
 
   // First try with computed position. Linux WMs sometimes reject out-of-range
   // coordinates with "Invalid value for bounds"; retry without coords if so.
+  let winId: number | undefined;
   try {
     if (left !== undefined && top !== undefined) {
       const win = await browser.windows.create({ ...baseOpts, left, top });
-      return win.id;
+      winId = win.id;
+    } else {
+      const win = await browser.windows.create(baseOpts);
+      winId = win.id;
     }
-    const win = await browser.windows.create(baseOpts);
-    return win.id;
   } catch (err) {
     console.warn('[otterly] popup positioned create failed, retrying without bounds:', err);
     try {
       const win = await browser.windows.create(baseOpts);
-      return win.id;
+      winId = win.id;
     } catch (err2) {
       console.error('[otterly] popup create failed:', err2);
       return undefined;
     }
   }
+
+  // On Linux/X11, many WMs (mutter, kwin) ignore initial left/top in windows.create
+  // and place the popup wherever they please. A follow-up windows.update reliably
+  // moves the window to our requested bounds after the WM has done its initial placement.
+  if (winId !== undefined && left !== undefined && top !== undefined) {
+    const updateBounds = { left, top, width, height };
+    const apply = () => {
+      browser.windows.update(winId!, updateBounds).catch((e) => {
+        console.warn('[otterly] popup windows.update failed:', e);
+      });
+    };
+    apply();
+    // Some WMs swallow the first update if it arrives before the window is realized;
+    // re-apply once more after a short delay as a safety net.
+    setTimeout(apply, 120);
+  }
+
+  return winId;
 }
 
 export async function requestApproval<T = any>(
