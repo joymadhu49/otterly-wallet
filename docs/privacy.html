@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — Otterly Wallet</title>
+<meta name="description" content="Privacy policy for Otterly Wallet — what we collect, what we don't, and why." />
+<link rel="icon" href="icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0: #06070A;
+    --bg-1: #0A0B0F;
+    --bg-2: #11131A;
+    --bg-3: #15171E;
+    --border: #1B1E27;
+    --t1: #FFFFFF;
+    --t2: #9CA3AF;
+    --t3: #5A5F6E;
+    --acc: #4D8EE9;
+    --acc-2: #5FBFFF;
+    --good: #22C55E;
+    --bad: #FF5C5C;
+  }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { margin: 0; padding: 0; background: var(--bg-0); color: var(--t1); font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.005em; line-height: 1.65; }
+  body { background: radial-gradient(900px 380px at 50% -10%, rgba(77,142,233,0.18), transparent 65%), var(--bg-0); min-height: 100vh; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  a { color: var(--acc-2); text-decoration: none; }
+  a:hover { color: var(--t1); }
+
+  nav.top { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); background: rgba(6,7,10,0.66); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  nav.top .inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; max-width: 920px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; color: var(--t1); }
+  .brand img { width: 32px; height: 32px; border-radius: 9px; box-shadow: 0 4px 16px rgba(77,142,233,0.4); }
+  .nav-links { display: flex; gap: 24px; font-size: 14px; }
+  .nav-links a { color: var(--t2); }
+  .nav-links a:hover { color: var(--t1); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 60px 32px 100px; }
+
+  .eyebrow { color: var(--acc-2); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; }
+  h1 { font-size: clamp(36px, 5.5vw, 56px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 12px 0 14px; }
+  .meta { color: var(--t3); font-size: 13px; margin-bottom: 36px; }
+  .meta span + span { margin-left: 18px; }
+  .meta span + span::before { content: "·"; margin-right: 18px; color: var(--border); }
+
+  .lede {
+    background: linear-gradient(180deg, rgba(77,142,233,0.10), rgba(77,142,233,0.02));
+    border: 1px solid rgba(77,142,233,0.18);
+    border-radius: 16px; padding: 22px 24px; margin-bottom: 40px;
+    color: var(--t1); font-size: 16px;
+  }
+  .lede b { color: var(--t1); }
+
+  h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin: 44px 0 12px; }
+  h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 24px 0 8px; color: var(--t1); }
+  p, li { color: var(--t2); font-size: 15px; }
+  p b, li b, p strong { color: var(--t1); }
+  ul { padding-left: 22px; }
+  li { margin: 6px 0; }
+
+  .grid {
+    display: grid; gap: 14px; grid-template-columns: 1fr 1fr;
+    margin: 18px 0 8px;
+  }
+  .card {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 18px;
+  }
+  .card .k { color: var(--t3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+  .card .v { color: var(--t1); font-size: 15px; font-weight: 600; margin-top: 6px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 5px 11px; border-radius: 999px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  .badge.no { background: rgba(255,92,92,0.12); border: 1px solid rgba(255,92,92,0.3); color: #FF8C8C; }
+  .badge.yes { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: var(--good); }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .badge.no .dot { background: var(--bad); }
+  .badge.yes .dot { background: var(--good); }
+
+  table.perms {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  }
+  table.perms th, table.perms td { text-align: left; padding: 12px 14px; font-size: 13px; vertical-align: top; }
+  table.perms th { color: var(--t3); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: var(--bg-3); }
+  table.perms td { border-top: 1px solid var(--border); color: var(--t2); }
+  table.perms td:first-child { color: var(--t1); font-weight: 600; }
+  table.perms td .mono { color: var(--acc-2); font-size: 12px; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 50px 0; }
+
+  footer { border-top: 1px solid rgba(255,255,255,0.04); padding: 28px 32px; max-width: 760px; margin: 0 auto; color: var(--t3); font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  footer a { color: var(--t2); }
+
+  @media (max-width: 640px) {
+    main { padding: 36px 20px 60px; }
+    .grid { grid-template-columns: 1fr; }
+    nav.top .inner { padding: 14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="inner">
+    <a href="index.html" class="brand">
+      <img src="icon.png" alt="" />
+      Otterly Wallet
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="https://github.com/joymadhu49/otterly-wallet">GitHub</a>
+      <a href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="eyebrow">Legal</div>
+  <h1>Privacy Policy</h1>
+  <div class="meta">
+    <span>Effective: 2026-05-21</span>
+    <span>Applies to: Otterly Wallet browser extension &amp; otterly-wallet.github.io site</span>
+  </div>
+
+  <div class="lede">
+    <b>Short version.</b> Otterly Wallet is a <b>self-custodial</b> browser extension. We do not run accounts, servers, analytics, telemetry, or tracking. Your seed phrase, private keys, and password <b>never leave your device</b>. We can't see them — we don't have them.
+  </div>
+
+  <div class="grid">
+    <div class="card"><div class="k">Personal data collected</div><div class="v"><span class="badge no"><span class="dot"></span>None</span></div></div>
+    <div class="card"><div class="k">Analytics / tracking</div><div class="v"><span class="badge no"><span class="dot"></span>None</span></div></div>
+    <div class="card"><div class="k">Account required</div><div class="v"><span class="badge no"><span class="dot"></span>No</span></div></div>
+    <div class="card"><div class="k">Keys held by us</div><div class="v"><span class="badge no"><span class="dot"></span>Never</span></div></div>
+    <div class="card"><div class="k">Open source</div><div class="v"><span class="badge yes"><span class="dot"></span>Yes (MIT)</span></div></div>
+    <div class="card"><div class="k">Data sold</div><div class="v"><span class="badge no"><span class="dot"></span>Never</span></div></div>
+  </div>
+
+  <h2>1. Who we are</h2>
+  <p>Otterly Wallet ("Otterly", "we", "the extension") is an open-source self-custodial cryptocurrency wallet browser extension for the Arc Network. The source code is published at <a href="https://github.com/joymadhu49/otterly-wallet">github.com/joymadhu49/otterly-wallet</a> under the MIT license.</p>
+
+  <h2>2. What we do <i>not</i> collect</h2>
+  <p>Otterly does <b>not</b> collect, transmit, store on remote servers, sell, share, or analyze any of the following:</p>
+  <ul>
+    <li>Personally identifiable information (name, email, phone, address, IP).</li>
+    <li>Seed phrases, private keys, passwords, or any vault material.</li>
+    <li>Wallet balances, token holdings, NFT inventory, or transaction history (as a remote record).</li>
+    <li>Usage analytics, click events, page views, dwell time, or feature telemetry.</li>
+    <li>Device fingerprints, advertising identifiers, or cross-site tracking signals.</li>
+    <li>Health, location, financial, authentication, or personal communications data.</li>
+  </ul>
+  <p>The extension makes <b>no</b> outbound calls to our own servers. We don't operate any.</p>
+
+  <h2>3. What is stored locally on your device</h2>
+  <p>Everything Otterly needs lives in <code class="mono" style="color:var(--acc-2)">chrome.storage.local</code> on your device, inside your browser profile:</p>
+  <ul>
+    <li><b>Encrypted vault</b> — seed phrase and private keys, encrypted with AES-GCM using a key derived from your password (PBKDF2-SHA256). Decryption happens only in-memory inside the extension's service worker after you enter your password to unlock.</li>
+    <li><b>Account names &amp; selected account</b> — display labels only (e.g. "Arc Vault 1"). Addresses are stored in plain text since they are public.</li>
+    <li><b>Per-origin connection permissions</b> — which sites you've connected, and to which accounts.</li>
+    <li><b>Local transaction record</b> — pending tx hashes you've sent, merged with public on-chain data for display.</li>
+    <li><b>Settings</b> — auto-lock timer, etc.</li>
+  </ul>
+  <p>None of this leaves your device through Otterly. Uninstalling the extension wipes the storage.</p>
+
+  <h2>4. Third-party services Otterly contacts</h2>
+  <p>To function as a wallet, Otterly must read the blockchain. These are <b>read-only public endpoints</b> — the same ones every wallet on Arc uses. No personal data is sent.</p>
+  <table class="perms">
+    <thead><tr><th>Service</th><th>Purpose</th><th>Sent</th></tr></thead>
+    <tbody>
+      <tr><td>Arc Network RPC<br/><span class="mono" style="color:var(--t3);font-size:11px">rpc.testnet.arc.network + fallbacks</span></td><td>Read balances, gas price, broadcast signed transactions.</td><td>Your address (public), signed tx bytes when you confirm a send.</td></tr>
+      <tr><td>Arc Blockscout explorer API<br/><span class="mono" style="color:var(--t3);font-size:11px">testnet.arcscan.app/api</span></td><td>Fetch your transaction history and NFT holdings for the History/NFT tabs.</td><td>Your address (public).</td></tr>
+      <tr><td>Google favicon service<br/><span class="mono" style="color:var(--t3);font-size:11px">www.google.com/s2/favicons</span></td><td>Display small icons of sites you've connected.</td><td>Domain name of each connected site (which you chose to connect).</td></tr>
+      <tr><td>Google Fonts<br/><span class="mono" style="color:var(--t3);font-size:11px">fonts.googleapis.com</span></td><td>Load the Inter and JetBrains Mono typefaces.</td><td>Standard browser headers per Google Fonts policy.</td></tr>
+      <tr><td>IPFS public gateway<br/><span class="mono" style="color:var(--t3);font-size:11px">ipfs.io</span></td><td>Resolve <code class="mono">ipfs://</code> NFT image links.</td><td>The CID embedded in NFT metadata.</td></tr>
+    </tbody>
+  </table>
+  <p>These services have their own privacy policies that apply when Otterly contacts them. We do not influence what they collect.</p>
+
+  <h2>5. Browser permissions and why we ask</h2>
+  <p>Otterly declares the minimum permissions needed for a Chrome MV3 wallet to function:</p>
+  <table class="perms">
+    <thead><tr><th>Permission</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">storage</span></td><td>Persist the encrypted vault and settings locally.</td></tr>
+      <tr><td><span class="mono">notifications</span></td><td>Surface approval requests when a dApp asks to connect or sign.</td></tr>
+      <tr><td><span class="mono">idle</span></td><td>Detect inactivity for the auto-lock timer.</td></tr>
+      <tr><td><span class="mono">alarms</span></td><td>Schedule the auto-lock check.</td></tr>
+      <tr><td><span class="mono">system.display</span></td><td>Position the approval popup at the top-right of the focused display.</td></tr>
+      <tr><td><span class="mono">&lt;all_urls&gt;</span> host access</td><td>Inject the EIP-1193 provider (<code class="mono">window.ethereum</code> / <code class="mono">window.arc</code>) into web pages so dApps can request connections. The provider is dormant until <i>you</i> connect a site.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>6. The wallet vault &amp; cryptography</h2>
+  <ul>
+    <li>Seed phrases are generated using BIP39 with cryptographically secure browser RNG.</li>
+    <li>Account keys derive from the seed via BIP32 / BIP44 path <code class="mono">m/44'/60'/0'/0/i</code>.</li>
+    <li>The vault is encrypted with AES-GCM. The encryption key is derived from your password with PBKDF2-SHA256 (10,000+ iterations).</li>
+    <li>Your password is never persisted. It only exists transiently in the service worker after unlock.</li>
+    <li>On lock, on browser close, or on idle timeout, the decrypted vault and password are wiped from memory.</li>
+  </ul>
+
+  <h2>7. Children</h2>
+  <p>Otterly is not directed to children under 13 (or the equivalent age in your jurisdiction). We do not knowingly collect data from children.</p>
+
+  <h2>8. Your responsibilities</h2>
+  <p>Because Otterly is self-custodial, <b>you</b> hold and manage your keys:</p>
+  <ul>
+    <li>Write down your seed phrase. Store it offline, ideally in two physical locations.</li>
+    <li>We <b>cannot recover</b> your seed phrase, password, or funds. Lost seed = lost funds.</li>
+    <li>Never share your seed phrase or private keys. No legitimate party will ever ask for them.</li>
+    <li>Always inspect approval popups — verify the origin, the recipient address, the amount, and the calldata before confirming.</li>
+  </ul>
+
+  <h2>9. Security disclosure</h2>
+  <p>Found a vulnerability? Open a private security advisory on GitHub at <a href="https://github.com/joymadhu49/otterly-wallet/security/advisories/new">github.com/joymadhu49/otterly-wallet/security/advisories/new</a>, or open an issue marked as security. Please do not disclose publicly before a fix is available.</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>If we update this policy, the new version will be published at the same URL with an updated <b>Effective</b> date at the top. Material changes will be flagged in the GitHub release notes for the version that ships them.</p>
+
+  <h2>11. Compliance with Chrome Web Store</h2>
+  <p>Otterly Wallet's data handling complies with the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq" target="_blank" rel="noreferrer">Chrome Web Store User Data Policy</a>, including the limited use requirements. Specifically:</p>
+  <ul>
+    <li>Otterly does <b>not</b> sell user data.</li>
+    <li>Otterly does <b>not</b> transfer user data for advertising, credit, or to data brokers.</li>
+    <li>Otterly does <b>not</b> use user data for purposes unrelated to the wallet's single core function.</li>
+    <li>Otterly does <b>not</b> allow humans to read user data, except (a) with your explicit consent, (b) when required by law, or (c) for security investigations.</li>
+  </ul>
+
+  <h2>12. Contact</h2>
+  <p>Open an issue at <a href="https://github.com/joymadhu49/otterly-wallet/issues">github.com/joymadhu49/otterly-wallet/issues</a> for any privacy-related question.</p>
+
+  <hr/>
+  <p style="color:var(--t3);font-size:12px">Otterly Wallet is open source under the MIT license. The full source code, including every network call this extension makes, is publicly auditable at <a href="https://github.com/joymadhu49/otterly-wallet">github.com/joymadhu49/otterly-wallet</a>.</p>
+</main>
+
+<footer>
+  <div>© 2026 Otterly Wallet · MIT licensed · Not affiliated with Circle.</div>
+  <div><a href="index.html">Home</a> · <a href="https://github.com/joymadhu49/otterly-wallet">Source</a></div>
+</footer>
+
+</body>
+</html>

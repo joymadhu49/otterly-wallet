@@ -3,15 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Otterly Wallet — every screen</title>
+<title>Otterly Wallet — friendly wallet for the Arc Network</title>
 <meta name="description" content="Otterly Wallet — friendly self-custodial Chrome extension for the Arc Network. USDC-native gas, instant finality." />
+<meta property="og:title" content="Otterly Wallet" />
+<meta property="og:description" content="Friendly self-custodial Chrome extension for the Arc Network. USDC-native gas, instant finality." />
+<meta property="og:image" content="icon.png" />
+<meta name="theme-color" content="#0A0B0F" />
 <link rel="icon" href="icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-0: #000000;
+    --bg-0: #06070A;
     --bg-1: #0A0B0F;
     --bg-2: #11131A;
     --bg-3: #15171E;
@@ -26,107 +30,174 @@
     --good: #22C55E;
     --bad: #FF5C5C;
     --warn: #FFB44D;
-    --grad: linear-gradient(180deg, #6CB2FF, #4D8EE9 55%, #1C4EC4);
-    --glow: radial-gradient(900px 380px at 50% -10%, rgba(77,142,233,0.22), transparent 70%);
+    --grad: linear-gradient(180deg, #8FC4FF, #5FBFFF 35%, #4D8EE9 65%, #1C4EC4);
+    --glow: radial-gradient(1200px 600px at 50% -10%, rgba(77,142,233,0.28), transparent 65%);
+    --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' /><feColorMatrix values='0 0 0 0 0.7 0 0 0 0 0.7 0 0 0 0 0.7 0 0 0 0.04 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
   }
   * { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   html, body { margin: 0; padding: 0; background: var(--bg-0); color: var(--t1); font-family: 'Inter', system-ui, sans-serif; letter-spacing: -0.005em; }
-  body { background: var(--glow), var(--bg-0); min-height: 100vh; }
+  body {
+    background:
+      var(--grain),
+      var(--glow),
+      radial-gradient(800px 400px at 10% 90%, rgba(77,142,233,0.10), transparent 60%),
+      radial-gradient(700px 380px at 90% 80%, rgba(34,197,94,0.06), transparent 60%),
+      var(--bg-0);
+    min-height: 100vh;
+  }
   .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; letter-spacing: 0; }
   a { color: var(--acc-2); text-decoration: none; }
   a:hover { color: var(--t1); }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: rgba(6,7,10,0.66); border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  nav.top .inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px; max-width: 1280px; margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; }
+  .brand img { width: 32px; height: 32px; border-radius: 9px; box-shadow: 0 4px 16px rgba(77,142,233,0.4); }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--t2); align-items: center; }
+  .nav-links a { color: var(--t2); transition: color 180ms; }
+  .nav-links a:hover { color: var(--t1); }
+  .nav-cta {
+    background: var(--acc); color: #fff !important; padding: 8px 16px; border-radius: 10px;
+    font-weight: 600; font-size: 13px; box-shadow: 0 6px 18px rgba(77,142,233,0.42);
+  }
+  .nav-cta:hover { background: #3F7BD6; }
 
   /* HERO */
-  .nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 28px 40px; max-width: 1280px; margin: 0 auto;
-  }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; }
-  .brand img { width: 36px; height: 36px; border-radius: 10px; }
-  .nav-links { display: flex; gap: 24px; font-size: 14px; color: var(--t2); }
-  .nav-links a { color: var(--t2); }
-  .nav-links a:hover { color: var(--t1); }
-
-  .hero {
-    max-width: 1180px; margin: 0 auto; padding: 60px 40px 40px; text-align: center;
-  }
+  .hero { padding: 100px 32px 80px; text-align: center; max-width: 920px; margin: 0 auto; }
   .hero .chip {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 6px 14px; border-radius: 999px;
-    background: rgba(77,142,233,0.08); border: 1px solid rgba(77,142,233,0.25);
+    background: rgba(77,142,233,0.08); border: 1px solid rgba(77,142,233,0.22);
     font-size: 12px; color: var(--acc-2); font-weight: 600; letter-spacing: 0.02em;
-    margin-bottom: 22px;
+    margin-bottom: 26px;
   }
-  .hero .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 10px var(--good); }
+  .hero .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 12px var(--good); animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.4 } }
   .hero h1 {
-    margin: 0; font-size: clamp(40px, 6vw, 72px); font-weight: 800;
-    letter-spacing: -0.035em; line-height: 1.02;
+    margin: 0; font-size: clamp(44px, 7vw, 88px); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 0.98;
   }
   .hero h1 .accent {
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .hero p {
-    color: var(--t2); font-size: clamp(15px, 1.4vw, 18px); line-height: 1.55;
-    max-width: 620px; margin: 18px auto 0;
+  .hero p.lede {
+    color: var(--t2); font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6;
+    max-width: 640px; margin: 22px auto 0;
   }
-  .cta-row { display: flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+  .cta-row { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
   .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 22px; border-radius: 12px;
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 24px; border-radius: 12px;
     font-weight: 700; font-size: 14px; letter-spacing: -0.005em;
-    transition: transform 180ms cubic-bezier(0.32, 0.72, 0.32, 1), box-shadow 180ms, background 180ms;
+    transition: transform 200ms cubic-bezier(0.32, 0.72, 0.32, 1), box-shadow 200ms, background 200ms;
     cursor: pointer; border: 1px solid transparent;
   }
-  .btn-primary { background: var(--acc); color: #fff; box-shadow: 0 8px 28px rgba(77,142,233,0.42); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(77,142,233,0.54); }
-  .btn-ghost { background: var(--bg-2); color: var(--t1); border-color: var(--border); }
-  .btn-ghost:hover { background: var(--bg-3); }
+  .btn-primary { background: var(--acc); color: #fff; box-shadow: 0 10px 32px rgba(77,142,233,0.45); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(77,142,233,0.6); background: #3F7BD6; }
+  .btn-ghost { background: rgba(255,255,255,0.04); color: var(--t1); border-color: rgba(255,255,255,0.06); backdrop-filter: blur(8px); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
 
   .stat-row {
-    display: flex; gap: 28px; justify-content: center; margin-top: 36px; color: var(--t2); font-size: 13px; flex-wrap: wrap;
+    display: flex; gap: 36px; justify-content: center; margin-top: 50px; flex-wrap: wrap;
   }
-  .stat-row b { color: var(--t1); }
+  .stat { text-align: center; }
+  .stat-num { font-size: 26px; font-weight: 800; letter-spacing: -0.025em; color: var(--t1); font-family: 'Inter'; }
+  .stat-num.gradient { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat-label { color: var(--t3); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
 
-  /* GRID OF MOCKS */
-  section.gallery { padding: 60px 24px 90px; max-width: 1280px; margin: 0 auto; }
+  /* SECTION TITLE */
+  .section-eyebrow {
+    text-align: center; color: var(--acc-2); font-size: 12px;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
+    margin-bottom: 14px;
+  }
   .section-title {
-    text-align: center; margin: 0 auto 50px;
+    text-align: center; margin: 0 auto 56px; max-width: 720px;
   }
   .section-title h2 {
-    font-size: clamp(28px, 3.4vw, 40px); font-weight: 700; letter-spacing: -0.025em; margin: 0;
+    font-size: clamp(30px, 3.8vw, 46px); font-weight: 800; letter-spacing: -0.03em; margin: 0;
+    line-height: 1.08;
   }
-  .section-title p { color: var(--t2); margin-top: 10px; font-size: 15px; }
+  .section-title p { color: var(--t2); margin-top: 14px; font-size: 16px; line-height: 1.55; }
 
+  /* FEATURES */
+  section.features { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .feat-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .feat {
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px; padding: 26px;
+    transition: transform 220ms, border-color 220ms, background 220ms;
+  }
+  .feat:hover { transform: translateY(-3px); border-color: rgba(77,142,233,0.3); }
+  .feat .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, rgba(77,142,233,0.18), rgba(77,142,233,0.06));
+    border: 1px solid rgba(77,142,233,0.25);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--acc-2); font-size: 19px; margin-bottom: 16px;
+  }
+  .feat h3 { margin: 0 0 6px; font-size: 17px; font-weight: 700; letter-spacing: -0.015em; }
+  .feat p { margin: 0; color: var(--t2); font-size: 14px; line-height: 1.55; }
+
+  /* GALLERY */
+  section.gallery {
+    padding: 80px 32px 100px; max-width: 1280px; margin: 0 auto;
+  }
   .grid {
-    display: grid; gap: 28px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: grid; gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     align-items: start;
   }
+  .frame-wrap { position: relative; margin-top: 30px; }
   .frame {
-    position: relative; padding: 8px; border-radius: 30px;
-    background: linear-gradient(180deg, #1A1E27 0%, #0A0B0F 100%);
+    position: relative; padding: 9px; border-radius: 32px;
+    background: linear-gradient(180deg, #1F2330 0%, #0A0B0F 100%);
     border: 1px solid var(--border-soft);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04);
-    transition: transform 220ms cubic-bezier(0.32, 0.72, 0.32, 1);
+    box-shadow:
+      0 40px 90px rgba(0,0,0,0.55),
+      0 4px 12px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.06),
+      inset 0 0 0 1px rgba(255,255,255,0.02);
+    transition: transform 280ms cubic-bezier(0.32, 0.72, 0.32, 1), box-shadow 280ms;
   }
-  .frame:hover { transform: translateY(-6px); }
+  .frame::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 88px; height: 18px; background: linear-gradient(180deg, #0A0B0F, #06070A);
+    border-radius: 0 0 14px 14px; z-index: 2;
+  }
+  .frame::after {
+    content: ""; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    width: 50px; height: 5px; background: #1F2330; border-radius: 999px; z-index: 3;
+  }
+  .frame:hover { transform: translateY(-8px); box-shadow: 0 50px 110px rgba(77,142,233,0.18), 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07); }
   .frame .screen {
-    width: 320px; height: 540px;
-    background: var(--bg-0); border-radius: 22px; overflow: hidden;
+    width: 326px; height: 560px;
+    background: var(--bg-0); border-radius: 24px; overflow: hidden;
     position: relative; font-size: 13px;
   }
   .frame-label {
     position: absolute; top: -28px; left: 0; right: 0;
     text-align: center; font-size: 11px; color: var(--t3);
-    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700;
   }
-  .frame-wrap { position: relative; margin-top: 32px; }
 
-  /* SHARED INNER COMPONENTS (mock) */
+  /* SHARED INNER COMPONENTS */
   .row { display: flex; align-items: center; gap: 8px; }
   .between { display: flex; align-items: center; justify-content: space-between; }
   .pad { padding: 0 14px; }
-  .h-pad { padding: 12px 14px; }
   .avatar {
     width: 32px; height: 32px; border-radius: 10px;
     display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden; flex-shrink: 0;
@@ -144,96 +215,173 @@
   }
   .pill .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--good); }
   .label-cap { font-size: 10px; color: var(--t3); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-  .card {
-    background: var(--bg-2); border: 1px solid var(--border); border-radius: 14px; padding: 12px;
-  }
-  .group {
-    background: #0F1117; border-radius: 14px; overflow: hidden;
-  }
+  .card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 14px; padding: 12px; }
+  .group { background: #0F1117; border-radius: 14px; overflow: hidden; }
   .group > div + div { border-top: 1px solid var(--bg-3); }
-  .icon-tile {
-    width: 36px; height: 36px; border-radius: 18px;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--bg-3); color: #fff; font-size: 14px; flex-shrink: 0;
-  }
-  .icon-tile.flat-circle { background: var(--bg-3); }
-  .header-bar {
-    display: flex; align-items: center; justify-content: center;
-    padding: 14px; font-weight: 700; font-size: 15px; position: relative;
-  }
-  .header-bar .back {
-    position: absolute; left: 10px; top: 10px;
-    width: 28px; height: 28px; border-radius: 8px;
-    display: inline-flex; align-items: center; justify-content: center; color: #fff;
-  }
-  .underline-tabs {
-    display: flex; gap: 18px; padding: 0 14px; border-bottom: 1px solid var(--border);
-    font-size: 13px;
-  }
-  .underline-tabs .tab {
-    padding: 10px 0; color: var(--t3); font-weight: 500;
-  }
-  .underline-tabs .tab.active {
-    color: #fff; font-weight: 700; border-bottom: 2px solid #fff; margin-bottom: -1px;
-  }
+  .icon-tile { width: 36px; height: 36px; border-radius: 18px; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-3); color: #fff; font-size: 14px; flex-shrink: 0; }
+  .header-bar { display: flex; align-items: center; justify-content: center; padding: 14px; font-weight: 700; font-size: 15px; position: relative; }
+  .header-bar .back { position: absolute; left: 10px; top: 10px; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+  .underline-tabs { display: flex; gap: 18px; padding: 0 14px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .underline-tabs .tab { padding: 10px 0; color: var(--t3); font-weight: 500; }
+  .underline-tabs .tab.active { color: #fff; font-weight: 700; border-bottom: 2px solid #fff; margin-bottom: -1px; }
   .arrow { color: var(--t3); font-size: 10px; }
-
-  /* Token icons */
   .tk { width: 28px; height: 28px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
   .tk-usdc { background: #2775CA; color: #fff; }
   .tk-eurc { background: #1F8FFF; color: #fff; }
 
-  /* Footer */
-  footer {
-    padding: 40px 24px 80px; text-align: center; color: var(--t3); font-size: 12px;
-    border-top: 1px solid var(--border); margin-top: 60px;
+  /* SECURITY */
+  section.security {
+    padding: 80px 32px; max-width: 1280px; margin: 0 auto;
   }
-  footer a { color: var(--t2); }
+  .sec-grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sec-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px; padding: 30px;
+  }
+  .sec-card h3 { margin: 0 0 8px; font-size: 19px; font-weight: 700; letter-spacing: -0.015em; }
+  .sec-card p { margin: 0; color: var(--t2); font-size: 14px; line-height: 1.6; }
+  .sec-card .lock { display: inline-flex; align-items: center; gap: 8px; color: var(--good); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .sec-card .lock-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--good); box-shadow: 0 0 12px var(--good); }
 
-  /* responsive */
+  /* TECH */
+  section.tech { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .tech-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px; overflow: hidden;
+  }
+  .tech-row { display: grid; grid-template-columns: 200px 1fr; padding: 18px 26px; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: center; }
+  .tech-row:last-child { border-bottom: none; }
+  .tech-row .k { color: var(--t3); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+  .tech-row .v { color: var(--t1); font-size: 14px; }
+  .tech-row .v.mono { color: var(--acc-2); }
+
+  /* FINAL CTA */
+  section.final-cta { padding: 80px 32px 100px; text-align: center; }
+  .final-cta .box {
+    max-width: 720px; margin: 0 auto;
+    background: linear-gradient(180deg, rgba(77,142,233,0.10), rgba(77,142,233,0.02));
+    border: 1px solid rgba(77,142,233,0.18);
+    border-radius: 24px; padding: 56px 32px;
+  }
+  .final-cta h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em; }
+  .final-cta p { margin: 14px auto 0; color: var(--t2); font-size: 16px; max-width: 480px; line-height: 1.55; }
+
+  /* FOOTER */
+  footer {
+    padding: 50px 32px 60px; border-top: 1px solid rgba(255,255,255,0.04);
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 36px;
+  }
+  footer .col h4 { color: var(--t3); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin: 0 0 14px; }
+  footer .col a { display: block; color: var(--t2); font-size: 14px; padding: 6px 0; }
+  footer .col a:hover { color: var(--t1); }
+  footer .brand-col { font-size: 14px; color: var(--t2); line-height: 1.55; }
+  footer .bottom {
+    grid-column: 1 / -1; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.04);
+    color: var(--t3); font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .feat-grid, .sec-grid { grid-template-columns: 1fr; }
+    .tech-row { grid-template-columns: 1fr; gap: 4px; padding: 14px 18px; }
+    footer { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 720px) {
-    .nav { padding: 18px 20px; }
-    .nav-links { display: none; }
-    .hero { padding: 30px 20px; }
-    section.gallery { padding: 30px 16px 60px; }
-    .frame .screen { width: 300px; height: 510px; }
+    nav.top .inner { padding: 14px 20px; }
+    .nav-links { gap: 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .hero { padding: 60px 20px 50px; }
+    section.features, section.gallery, section.security, section.tech, section.final-cta { padding-left: 18px; padding-right: 18px; }
+    .frame .screen { width: 306px; height: 530px; }
+    footer { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="brand">
-    <img src="icon.png" alt="" />
-    Otterly Wallet
-  </div>
-  <div class="nav-links">
-    <a href="https://github.com/joymadhu49/otterly-wallet">GitHub</a>
-    <a href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download</a>
-    <a href="https://docs.arc.io">Arc Network</a>
+<nav class="top">
+  <div class="inner">
+    <a href="#" class="brand">
+      <img src="icon.png" alt="" />
+      Otterly Wallet
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#screens">Screens</a>
+      <a href="#security">Security</a>
+      <a href="privacy.html">Privacy</a>
+      <a class="nav-cta" href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download</a>
+    </div>
   </div>
 </nav>
 
 <section class="hero">
   <div class="chip"><span class="dot"></span> Arc Testnet · v0.1.0</div>
-  <h1>The friendliest wallet for <span class="accent">Arc</span>.</h1>
-  <p>Self-custodial Chrome extension built for Arc — Circle's EVM L1 where <b style="color:#fff">USDC is the native gas token</b>. Instant finality. No ETH needed.</p>
+  <h1>A friendly wallet,<br/>built for <span class="accent">Arc</span>.</h1>
+  <p class="lede">Self-custodial Chrome extension for Circle's EVM L1 — where <b style="color:#fff">USDC is the native gas token</b>. No ETH needed. Sub-second finality. Keys stay yours.</p>
   <div class="cta-row">
-    <a class="btn btn-primary" href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download for Chrome</a>
-    <a class="btn btn-ghost" href="https://github.com/joymadhu49/otterly-wallet">View on GitHub</a>
+    <a class="btn btn-primary" href="https://github.com/joymadhu49/otterly-wallet/releases/latest">↓ Download for Chrome</a>
+    <a class="btn btn-ghost" href="https://github.com/joymadhu49/otterly-wallet">View source</a>
   </div>
   <div class="stat-row">
-    <span><b>Chain ID</b> 5042002</span>
-    <span><b>Native</b> USDC</span>
-    <span><b>Finality</b> &lt; 1s</span>
-    <span><b>License</b> MIT</span>
+    <div class="stat"><div class="stat-num gradient">5042002</div><div class="stat-label">Chain ID</div></div>
+    <div class="stat"><div class="stat-num">USDC</div><div class="stat-label">Native gas</div></div>
+    <div class="stat"><div class="stat-num">&lt; 1s</div><div class="stat-label">Finality</div></div>
+    <div class="stat"><div class="stat-num">MIT</div><div class="stat-label">Open source</div></div>
   </div>
 </section>
 
-<section class="gallery">
+<section class="features" id="features">
+  <div class="section-eyebrow">Built for Arc</div>
   <div class="section-title">
-    <h2>Every screen, designed with care.</h2>
-    <p>Premium dark UI · OKX-style minimalism · Rabby-style approval flow.</p>
+    <h2>Designed around how Arc actually works.</h2>
+    <p>Native USDC gas. Sub-second finality. Legacy gas pricing. We rebuilt the wallet flow around them — not the other way around.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat">
+      <div class="icon">$</div>
+      <h3>USDC-native gas</h3>
+      <p>Every fee is shown, paid, and accounted for in USDC. No second token to fund. No conversion math.</p>
+    </div>
+    <div class="feat">
+      <div class="icon">⚡</div>
+      <h3>Instant finality</h3>
+      <p>Transactions confirm in under a second. No spinning confirmation counters — just done.</p>
+    </div>
+    <div class="feat">
+      <div class="icon">🔐</div>
+      <h3>Self-custodial</h3>
+      <p>Keys live encrypted on your device via AES-GCM. The vault opens only when you unlock — never on a server.</p>
+    </div>
+    <div class="feat">
+      <div class="icon">⌐</div>
+      <h3>EIP-1193 + EIP-6963</h3>
+      <p>Standard injected provider with multi-wallet announce. Coexists with other extensions — no overrides.</p>
+    </div>
+    <div class="feat">
+      <div class="icon">⊞</div>
+      <h3>HD + private-key</h3>
+      <p>BIP39 mnemonic with multiple derived accounts, or import a single raw key. Rename, switch, lock.</p>
+    </div>
+    <div class="feat">
+      <div class="icon">◐</div>
+      <h3>Auto-lock</h3>
+      <p>Idle timer wipes the vault from memory automatically. Reopening prompts your password.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="screens">
+  <div class="section-eyebrow">Every screen</div>
+  <div class="section-title">
+    <h2>Premium minimalism, end to end.</h2>
+    <p>From onboarding to approvals, every surface is purposeful, calm, and consistent.</p>
   </div>
 
   <div class="grid">
@@ -504,36 +652,14 @@
       </div></div>
     </div>
 
-    <!-- 9. CONNECTED SITES -->
-    <div class="frame-wrap">
-      <div class="frame-label">Connected sites</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar"><div class="back">←</div>Connected sites</div>
-        <div class="pad">
-          <div class="group">
-            <div class="row" style="padding:12px 12px;gap:12px">
-              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5FBFFF,#4D8EE9);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff">N</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:13px">numa-arc.xyz</div><div class="mono" style="font-size:11px;color:var(--t2);margin-top:2px">0xab7e…fad</div></div>
-              <span class="pill" style="padding:5px 11px;font-size:11px;color:var(--t2);background:transparent;border:1px solid var(--border)">Disconnect</span>
-            </div>
-            <div class="row" style="padding:12px 12px;gap:12px">
-              <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#22C55E,#0E7C3A);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff">C</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:13px">circle.com</div><div class="mono" style="font-size:11px;color:var(--t2);margin-top:2px">0xab7e…fad</div></div>
-              <span class="pill" style="padding:5px 11px;font-size:11px;color:var(--t2);background:transparent;border:1px solid var(--border)">Disconnect</span>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </div>
-
-    <!-- 10. APPROVAL CONNECT -->
+    <!-- 9. APPROVAL CONNECT -->
     <div class="frame-wrap">
       <div class="frame-label">Approval · Connect</div>
       <div class="frame"><div class="screen">
         <div style="padding:14px 14px 4px;display:flex;align-items:center;justify-content:space-between">
           <div class="row" style="gap:8px">
             <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5FBFFF,#4D8EE9);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px">N</div>
-            <div class="mono" style="font-size:11px;color:var(--t2)">www.numa-arc.xyz</div>
+            <div class="mono" style="font-size:11px;color:var(--t2)">www.example-dapp.xyz</div>
           </div>
           <span class="pill" style="background:rgba(77,142,233,0.08);color:var(--acc-2);border:1px solid rgba(77,142,233,0.25)"><span class="dot" style="background:var(--acc-2)"></span>Arc Testnet</span>
         </div>
@@ -564,94 +690,97 @@
       </div></div>
     </div>
 
-    <!-- 11. APPROVAL SIGN TX -->
-    <div class="frame-wrap">
-      <div class="frame-label">Approval · Sign Tx</div>
-      <div class="frame"><div class="screen">
-        <div style="padding:14px 14px 4px;display:flex;align-items:center;justify-content:space-between">
-          <div class="row" style="gap:8px">
-            <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5FBFFF,#4D8EE9);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px">N</div>
-            <div class="mono" style="font-size:11px;color:var(--t2)">www.numa-arc.xyz</div>
-          </div>
-          <span class="pill" style="background:rgba(77,142,233,0.08);color:var(--acc-2);border:1px solid rgba(77,142,233,0.25)"><span class="dot" style="background:var(--acc-2)"></span>Arc Testnet</span>
-        </div>
-        <div style="padding:6px 14px 0">
-          <div style="font-size:22px;font-weight:800;letter-spacing:-0.02em">Confirm transaction</div>
-        </div>
-        <div style="padding:14px 14px 0">
-          <div class="card">
-            <div class="row" style="gap:10px">
-              <div class="avatar" style="width:28px;height:28px;border-radius:8px">
-                <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-                <span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span>
-                <span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span>
-                <span style="background:#3CB371"></span><span style="background:#FF6B9D"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span>
-                <span style="background:#E2725B"></span><span style="background:#F4C430"></span><span style="background:#5FBFFF"></span><span style="background:#3CB371"></span><span style="background:#E2725B"></span>
-              </div>
-              <div style="flex:1"><div class="label-cap">Signer</div><div class="mono" style="font-size:12px;margin-top:2px">0xAB7E37…128fad</div></div>
-            </div>
-          </div>
-        </div>
-        <div style="padding:12px 14px 0">
-          <div class="card">
-            <div class="between"><span style="color:var(--t2);font-size:12px">To</span><span class="mono" style="font-size:12px">0x6dC4…f3a2</span></div>
-            <div class="between" style="margin-top:8px"><span style="color:var(--t2);font-size:12px">Value</span><span style="font-weight:700">0.5 USDC</span></div>
-            <div class="between" style="margin-top:8px"><span style="color:var(--t2);font-size:12px">Network fee</span><span style="color:var(--acc-2);font-weight:600">0.000420 USDC</span></div>
-            <div class="between" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><span style="color:var(--t2);font-size:12px">Total</span><span style="font-weight:800">0.500420 USDC</span></div>
-          </div>
-        </div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px 14px;border-top:1px solid var(--border);background:rgba(10,11,15,0.94);display:flex;gap:10px">
-          <div style="flex:1;background:var(--bg-3);border:1px solid var(--border);color:#fff;font-weight:700;padding:12px;border-radius:12px;text-align:center;font-size:13px">Reject</div>
-          <div style="flex:1;background:var(--acc);color:#fff;font-weight:700;padding:12px;border-radius:12px;text-align:center;font-size:13px;box-shadow:0 8px 24px rgba(77,142,233,0.42)">Confirm</div>
-        </div>
-      </div></div>
-    </div>
+  </div>
+</section>
 
-    <!-- 12. CREATE WALLET - SEED REVEAL -->
-    <div class="frame-wrap">
-      <div class="frame-label">Create · Seed phrase</div>
-      <div class="frame"><div class="screen">
-        <div class="header-bar"><div class="back">←</div>Recovery phrase</div>
-        <div class="pad">
-          <div style="color:var(--t2);font-size:12px;line-height:1.5;margin-bottom:14px">Write down these 12 words in order. Never share them. Otterly cannot recover them for you.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-            <!-- 12 seed chips -->
-            <!-- generated dummy words -->
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">1</span><span class="mono" style="font-size:12px">orbit</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">2</span><span class="mono" style="font-size:12px">lunar</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">3</span><span class="mono" style="font-size:12px">vault</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">4</span><span class="mono" style="font-size:12px">river</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">5</span><span class="mono" style="font-size:12px">amber</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">6</span><span class="mono" style="font-size:12px">circle</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">7</span><span class="mono" style="font-size:12px">otter</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">8</span><span class="mono" style="font-size:12px">forest</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">9</span><span class="mono" style="font-size:12px">glide</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">10</span><span class="mono" style="font-size:12px">harbor</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">11</span><span class="mono" style="font-size:12px">silver</span></div>
-            <div class="row" style="background:var(--bg-2);border:1px solid var(--border);padding:8px 10px;border-radius:10px;gap:8px"><span style="color:var(--t3);font-size:11px">12</span><span class="mono" style="font-size:12px">arcade</span></div>
-          </div>
-          <div style="display:flex;gap:8px;margin-top:14px"><span class="pill" style="background:var(--bg-3);border:1px solid var(--border);padding:6px 11px">⧉ Copy</span></div>
-        </div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:12px 14px 14px;border-top:1px solid var(--border);background:rgba(10,11,15,0.92)">
-          <div style="background:var(--acc);color:#fff;font-weight:700;padding:13px;border-radius:12px;text-align:center;font-size:14px;box-shadow:0 8px 24px rgba(77,142,233,0.4)">I saved it — continue</div>
-        </div>
-      </div></div>
+<section class="security" id="security">
+  <div class="section-eyebrow">Security & Privacy</div>
+  <div class="section-title">
+    <h2>Your keys never leave your device.</h2>
+    <p>No accounts. No tracking. No cloud sync. Everything sensitive stays encrypted in your browser.</p>
+  </div>
+  <div class="sec-grid">
+    <div class="sec-card">
+      <div class="lock"><span class="lock-dot"></span>Local-only vault</div>
+      <h3>AES-GCM encrypted storage</h3>
+      <p>Seed phrases and private keys are encrypted with your password and stored in <code class="mono" style="color:var(--acc-2)">chrome.storage.local</code>. The decryption key never lives on disk. We don't see your keys — and we couldn't if we tried.</p>
     </div>
+    <div class="sec-card">
+      <div class="lock"><span class="lock-dot"></span>Zero telemetry</div>
+      <h3>No analytics, no fingerprinting</h3>
+      <p>Otterly makes no analytics calls, no error reporting, no usage tracking. The only outbound traffic is what you'd expect from a wallet: RPC reads against Arc nodes and the public Arc explorer.</p>
+    </div>
+    <div class="sec-card">
+      <div class="lock"><span class="lock-dot"></span>Idle auto-lock</div>
+      <h3>Vault wipes from memory</h3>
+      <p>The decrypted vault stays in the service worker only while you're active. Idle past the configured timer? The vault is dropped and your password is required to continue.</p>
+    </div>
+    <div class="sec-card">
+      <div class="lock"><span class="lock-dot"></span>Open source</div>
+      <h3>Auditable, MIT licensed</h3>
+      <p>Every line of Otterly is on GitHub. No obfuscation, no telemetry endpoints, no closed binaries. Build it yourself, audit it yourself, or just read it.</p>
+    </div>
+  </div>
+</section>
 
+<section class="tech">
+  <div class="section-eyebrow">Technical specs</div>
+  <div class="section-title">
+    <h2>Built on solid primitives.</h2>
+  </div>
+  <div class="tech-card">
+    <div class="tech-row"><div class="k">Network</div><div class="v">Arc Testnet</div></div>
+    <div class="tech-row"><div class="k">Chain ID</div><div class="v mono">5042002 &nbsp; (0x4cef52)</div></div>
+    <div class="tech-row"><div class="k">RPC</div><div class="v mono">https://rpc.testnet.arc.network &nbsp; <span style="color:var(--t3)">+ fallbacks</span></div></div>
+    <div class="tech-row"><div class="k">Native</div><div class="v">USDC &nbsp; <span style="color:var(--t3)">(18 dec for gas, 6 dec ERC-20 mirror)</span></div></div>
+    <div class="tech-row"><div class="k">Finality</div><div class="v">Sub-second (first inclusion)</div></div>
+    <div class="tech-row"><div class="k">Tx type</div><div class="v">Legacy <span class="mono" style="color:var(--acc-2)">type: 0</span> &nbsp; <span style="color:var(--t3)">(no EIP-1559 base fee)</span></div></div>
+    <div class="tech-row"><div class="k">Provider</div><div class="v">EIP-1193 &nbsp; <span style="color:var(--t3)">·</span> &nbsp; EIP-6963 announce</div></div>
+    <div class="tech-row"><div class="k">Key derivation</div><div class="v">BIP39 &nbsp; <span style="color:var(--t3)">·</span> &nbsp; <span class="mono" style="color:var(--acc-2)">m/44'/60'/0'/0/i</span></div></div>
+    <div class="tech-row"><div class="k">Vault crypto</div><div class="v">AES-GCM (PBKDF2-SHA256)</div></div>
+    <div class="tech-row"><div class="k">License</div><div class="v">MIT</div></div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="box">
+    <h2>Ready to try Otterly?</h2>
+    <p>Download the latest build from GitHub Releases. Chrome Web Store listing coming soon.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/joymadhu49/otterly-wallet/releases/latest">↓ Get the latest release</a>
+      <a class="btn btn-ghost" href="https://github.com/joymadhu49/otterly-wallet">Read the source</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div style="margin-bottom:8px">
-    <a href="https://github.com/joymadhu49/otterly-wallet">GitHub</a>
-    &nbsp;·&nbsp;
-    <a href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download</a>
-    &nbsp;·&nbsp;
-    <a href="https://github.com/joymadhu49/otterly-wallet/issues">Issues</a>
-    &nbsp;·&nbsp;
-    <a href="https://docs.arc.io">Arc Network</a>
+  <div class="col brand-col">
+    <div class="brand" style="margin-bottom:14px"><img src="icon.png" alt=""/>Otterly Wallet</div>
+    Friendly self-custodial Chrome extension for the Arc Network. USDC-native gas. Sub-second finality.
   </div>
-  Otterly Wallet · MIT licensed · Built for the Arc Network.
+  <div class="col">
+    <h4>Product</h4>
+    <a href="#features">Features</a>
+    <a href="#screens">Screens</a>
+    <a href="#security">Security</a>
+    <a href="https://github.com/joymadhu49/otterly-wallet/releases/latest">Download</a>
+  </div>
+  <div class="col">
+    <h4>Resources</h4>
+    <a href="https://github.com/joymadhu49/otterly-wallet">GitHub</a>
+    <a href="https://github.com/joymadhu49/otterly-wallet/issues">Report an issue</a>
+    <a href="https://docs.arc.io">Arc docs</a>
+    <a href="https://faucet.circle.com">Faucet</a>
+  </div>
+  <div class="col">
+    <h4>Legal</h4>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="https://github.com/joymadhu49/otterly-wallet/blob/main/LICENSE">License (MIT)</a>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Otterly Wallet · MIT licensed · Not affiliated with Circle.</div>
+    <div>Built for the Arc Network</div>
+  </div>
 </footer>
 
 </body>

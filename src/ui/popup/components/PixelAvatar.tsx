@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-// Deterministic blocky avatar (OKX-style) from address
+// Deterministic blocky avatar derived from address hash
 export const PixelAvatar: React.FC<{ address?: string; size?: number }> = ({ address = '', size = 44 }) => {
   const cells = useMemo(() => {
     const h = address.replace(/^0x/, '').toLowerCase().padEnd(40, '0');

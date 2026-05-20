@@ -1,6 +1,6 @@
 # Otterly Wallet
 
-Friendly self-custodial Chrome extension wallet for the [Arc Network](https://docs.arc.io) — Circle's EVM L1 where **USDC is the native gas token**. Premium dark UI, OKX-style minimalism, Rabby-style approval UX.
+Friendly self-custodial Chrome extension wallet for the [Arc Network](https://docs.arc.io) — Circle's EVM L1 where **USDC is the native gas token**. Premium minimalist dark UI, slim approval popups, instant finality.
 
 > **Status:** v0.1.0 — Arc Testnet. Mainnet config drops in when Arc mainnet ships.
 
@@ -30,11 +30,11 @@ Works in any Chromium browser (Chrome, Brave, Edge, Arc, Opera).
 
 - **Self-custodial** — keys live encrypted in `chrome.storage.local` via AES-GCM (`@metamask/browser-passworder`).
 - **Arc-native** — chain `5042002`, USDC gas, instant finality (<1s), legacy `gasPrice` (no EIP-1559 base fee).
-- **EIP-1193 provider** — injects `window.ethereum` + `window.arc`; announces via EIP-6963 so it coexists with MetaMask/Rabby/Phantom.
+- **EIP-1193 provider** — injects `window.ethereum` + `window.arc`; announces via EIP-6963 so it coexists with other injected wallets.
 - **HD + private-key import** — multiple accounts per HD root (BIP39 / `m/44'/60'/0'/0/i`).
 - **Approval popups** — Connect, SignTx, `personal_sign`, `signTypedData_v4`. Slim 360×640 window, anchored top-right of the focused display.
 - **Auto-lock** — idle timer (configurable).
-- **OKX-style minimalist UI** — antd v5 dark theme, Arc-blue accent, Inter + JetBrains Mono.
+- **Minimalist UI** — antd v5 dark theme, Arc-blue accent, Inter + JetBrains Mono.
 
 ---
 
